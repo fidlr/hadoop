@@ -3,7 +3,7 @@ hadoop
 
 Master repository for hadoop jobs
 
-# ___hadoop-job1___
+### hadoop-job1
 This is the hadoop classic WordCount example, created with Matthias Friedrich's maven archetype for hadoop jobs.
 This project was created by following [this][2] blog, go there for details. Thanks Matthias.
 
