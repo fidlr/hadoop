@@ -13,5 +13,4 @@ hadoop jar hadoop-job1.jar org.javasucks.hadoop.WordCount /falcon/demo/bcp/proce
 ```
 
 
-[1]:
 [2]: http://blog.mafr.de/2010/08/01/maven-archetype-hadoop/
