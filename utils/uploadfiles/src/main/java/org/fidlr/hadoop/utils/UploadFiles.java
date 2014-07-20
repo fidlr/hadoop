@@ -13,33 +13,37 @@ import org.apache.hadoop.io.Text;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 
 /**
  * Created by omer on 7/15/14.
  */
-public class FilesUpload {
-    public static void print_usage() {
-        System.out.printf("Usage: filesupload SRC_DIR DEST_DIR\n");
+public class UploadFiles {
+    public static void print_usage(Options options) {
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp("uploadfiles", options);
     }
 
     public static void main(String[] args) throws IOException {
         String src_uri = null;
         String dest_uri = null;
-        CommandLineParser parser = new BasicParser();
+        CommandLineParser parser = new PosixParser();
         CommandLine cmd = null;
         String[] fargs;
 
         Options options = new Options();
         options.addOption("r", "recurse", false,"recurse subdirectories");
-        options.addOption("v", "verbose", false,"Print progress report to stdout");
+        options.addOption("R", false,"same as \'-r\'");
 
         // Parse command line
         try {
             cmd = parser.parse( options, args);
             fargs = cmd.getArgs(); // get the remainder of the command line
-            if (fargs.length != 2)
-                throw new ParseException("Not enough arguments");
+            if (fargs.length != 2) {
+                System.out.println("Wrong number of arguments.");
+                print_usage(options);
+                System.exit(1);
+            }
+
 
             src_uri = fargs[0];
             dest_uri = fargs[1];
@@ -47,8 +51,7 @@ public class FilesUpload {
         } catch (ParseException e) {
 
             e.printStackTrace();
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("filesupload", options);
+            print_usage(options);
             System.exit(1);
         }
 
@@ -71,7 +74,7 @@ public class FilesUpload {
 
                 Path cur_path = status[i].getPath();
                 if (cmd.hasOption("v")) {
-                    System.out.printf("Uploading %s", src_path);
+                    System.out.printf("Uploading %s", src_path.toString());
                 }
 
                 FSDataInputStream stream = new FSDataInputStream(src_fs.open(cur_path));
