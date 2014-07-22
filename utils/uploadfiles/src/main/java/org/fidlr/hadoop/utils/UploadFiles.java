@@ -24,7 +24,7 @@ public class UploadFiles {
     }
 
     public static void main(String[] args) throws IOException {
-        String src_uri = null;
+        String src_dir = null;
         String dest_uri = null;
         CommandLineParser parser = new PosixParser();
         CommandLine cmd = null;
@@ -51,7 +51,8 @@ public class UploadFiles {
                 System.exit(1);
             }
 
-            src_uri = fargs[0];
+
+            src_dir = fargs[0];
             dest_uri = fargs[1];
 
         } catch (ParseException e) {
@@ -62,10 +63,9 @@ public class UploadFiles {
         }
 
         Configuration conf = new Configuration();
-//        FileSystem dest_fs = FileSystem.get(URI.create(dest_uri), conf);
-        FileSystem src_fs = FileSystem.get(URI.create(src_uri), conf);
+        FileSystem src_fs = FileSystem.getLocal(conf);
         Path dest_path = new Path(dest_uri);
-        Path src_path = new Path(src_uri);
+        Path src_path = new Path(src_dir);
         
         Text key = new Text();
         BytesWritable value = new BytesWritable();
