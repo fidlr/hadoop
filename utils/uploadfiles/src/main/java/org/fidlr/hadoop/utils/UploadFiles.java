@@ -20,7 +20,7 @@ import java.net.URI;
 public class UploadFiles {
     public static void print_usage(Options options) {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("uploadfiles", options);
+        formatter.printHelp("uploadfiles [OPTION]... SRC_DIR DEST_URL", options);
     }
 
     public static void main(String[] args) throws IOException {
@@ -33,17 +33,23 @@ public class UploadFiles {
         Options options = new Options();
         options.addOption("r", "recurse", false,"recurse subdirectories");
         options.addOption("R", false,"same as \'-r\'");
+        options.addOption("h", "help", false,"print usage");
+        options.addOption("v", "verbose", false,"output progress");
 
         // Parse command line
         try {
             cmd = parser.parse( options, args);
             fargs = cmd.getArgs(); // get the remainder of the command line
-            if (fargs.length != 2) {
+            if (cmd.hasOption('h'))
+            {
+                print_usage(options);
+                System.exit(1);
+            }
+            else if (fargs.length != 2) {
                 System.out.println("Wrong number of arguments.");
                 print_usage(options);
                 System.exit(1);
             }
-
 
             src_uri = fargs[0];
             dest_uri = fargs[1];
