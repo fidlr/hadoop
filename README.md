@@ -12,5 +12,14 @@ To run copy to the cluster and execute:
 hadoop jar hadoop-job1.jar org.javasucks.hadoop.WordCount /falcon/demo/bcp/processed/enron/2014-02-28-00 /user/hue/wordcount
 ```
 
+hadoop/utils
+============
+
+### uploadfiles
+A command line utility used to upload a local directory with small files in the local filesystem to a a single SequenceFile in a remote hdfs cluster. 
+
+To run ```java -jar uploadfiles.jar```.<br>
+To build and generate a single runnable jar file with dependencies run ```mvn clean package```.
+
 
 [2]: http://blog.mafr.de/2010/08/01/maven-archetype-hadoop/
