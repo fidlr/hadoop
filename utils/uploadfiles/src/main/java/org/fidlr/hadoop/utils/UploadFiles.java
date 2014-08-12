@@ -47,11 +47,10 @@ public class UploadFiles {
             fargs = cmd.getArgs(); // get the remainder of the command line
             if (cmd.hasOption('h'))
             {
-                print_usage(options);
-                throw new ParseException(""); /* Exit the function and the program without a special message */
+                throw new ParseException("\ne.g. java -jar uploadfiles.jar -v /home/me/Pictures " +
+                                         "hdfs://namenode:8020/user/me/pics.raw");
             }
             else if (fargs.length != 2) {
-                print_usage(options);
                 throw new ParseException("Wrong number of arguments.");
             }
 
