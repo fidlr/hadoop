@@ -1,8 +1,8 @@
 // To run copy to the cluster and execute:
-// hadoop jar hadoop-job1.jar org.javasucks.hadoop.WordCount /falcon/demo/bcp/processed/enron/2014-02-28-00 /user/hue/wordcount
+// hadoop jar hadoop-job1.jar org.fidlr.hadoop.WordCount /falcon/demo/bcp/processed/enron/2014-02-28-00 /user/hue/wordcount
 
 
-package org.javasucks.hadoop;
+package org.fidlr.hadoop;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;

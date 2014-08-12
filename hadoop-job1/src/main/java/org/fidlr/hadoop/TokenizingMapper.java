@@ -1,4 +1,4 @@
-package org.javasucks.hadoop;
+package org.fidlr.hadoop;
 
 import java.io.IOException;
 import java.util.StringTokenizer;
@@ -18,7 +18,7 @@ public class TokenizingMapper extends Mapper<LongWritable, Text, Text, IntWritab
     protected void map(LongWritable offset, Text value, Context context) 
             throws IOException, InterruptedException {
         
-        StringTokenizer tok = new StringTokenizer(value.toString());
+        StringTokenizer tok = new StringTokenizer(value.toString(), "\n\r\t,. -!@#$%^&*()_+=\"\':;[]{}<>/\\");
         while (tok.hasMoreTokens()) {
             Text word = new Text(tok.nextToken());
             context.write(word, one);
