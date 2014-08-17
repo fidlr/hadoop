@@ -11,6 +11,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.SequenceFileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.reduce.IntSumReducer;
 import org.apache.hadoop.util.Tool;
@@ -38,8 +39,10 @@ public class ImageJob extends Configured implements Tool {
             return 1;
         }
         
-        Job job = new Job(getConf(), "ImageJob");
+        Job job = new Job(getConf());
         job.setJarByClass(getClass());
+        job.setJobName("ImageJob");
+        job.setInputFormatClass(SequenceFileInputFormat.class);
         
         job.setMapperClass(PrintKeysMapper.class);
         job.setCombinerClass(IntSumReducer.class);
@@ -47,7 +50,8 @@ public class ImageJob extends Configured implements Tool {
         
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
-        
+
+
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
         

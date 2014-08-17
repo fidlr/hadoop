@@ -13,14 +13,14 @@ import java.util.StringTokenizer;
 /**
  * Turns lines from a text file into (word, 1) tuples.
  */
-public class PrintKeysMapper extends Mapper<LongWritable, BytesWritable, Text, IntWritable> {
+public class PrintKeysMapper extends Mapper<Text, BytesWritable, Text, IntWritable> {
     private static final IntWritable one = new IntWritable(1);
 
-    protected void map(LongWritable line_index, BytesWritable value, Context context)
+    protected void map(Text filename, BytesWritable value, Context context)
             throws IOException, InterruptedException {
 
         // TODO: Break up 'value' into (Filename, File Contents)
 
-        context.write(/* File Contents */, one);
+        context.write(/* File Contents */filename, one);
     }
 }
