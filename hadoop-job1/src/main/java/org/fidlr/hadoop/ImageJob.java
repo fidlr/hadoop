@@ -7,6 +7,7 @@ package org.fidlr.hadoop;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -39,18 +40,30 @@ public class ImageJob extends Configured implements Tool {
             return 1;
         }
         
-        Job job = new Job(getConf());
+        Job job = Job.getInstance(getConf());
         job.setJarByClass(getClass());
         job.setJobName("ImageJob");
         job.setInputFormatClass(SequenceFileInputFormat.class);
         
+/*      // Print Filename Job -
+        // Using PrintKeysMapper and IntSumReducer (as reducer and combiner)
+
         job.setMapperClass(PrintKeysMapper.class);
         job.setCombinerClass(IntSumReducer.class);
         job.setReducerClass(IntSumReducer.class);
-        
+
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
+*/
 
+        // Print Filename Job -
+        // Using PrintKeysMapper and IntSumReducer (as reducer and combiner)
+        job.setMapperClass(BlurMapper.class);
+        job.setCombinerClass(PassThroughReducer.class);
+        job.setReducerClass(PassThroughReducer.class);
+
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(BytesWritable.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));

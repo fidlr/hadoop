@@ -2,12 +2,10 @@ package org.fidlr.hadoop;
 
 import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
 
 
 /**
@@ -18,8 +16,6 @@ public class PrintKeysMapper extends Mapper<Text, BytesWritable, Text, IntWritab
 
     protected void map(Text filename, BytesWritable value, Context context)
             throws IOException, InterruptedException {
-
-        // TODO: Break up 'value' into (Filename, File Contents)
 
         context.write(/* File Contents */filename, one);
     }

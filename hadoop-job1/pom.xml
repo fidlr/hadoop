@@ -20,6 +20,14 @@
   </properties>
 
   <dependencies>
+      <dependency>
+          <groupId>org.opencv</groupId>
+          <artifactId>opencv</artifactId>
+          <scope>system</scope>
+          <version>2.4.8</version>
+          <systemPath>/usr/share/OpenCV/java/opencv-248.jar</systemPath>
+      </dependency>
+
     <dependency>
       <groupId>org.apache.hadoop</groupId>
       <artifactId>hadoop-common</artifactId>
@@ -36,18 +44,6 @@
          include all dependencies from the "compile" scope (which is
 	 the default) in the job jar's "lib" directory.
     -->
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>1.9.5</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
       <dependency>
           <groupId>org.mockito</groupId>
           <artifactId>mockito-core</artifactId>
@@ -58,6 +54,11 @@
           <artifactId>junit</artifactId>
           <version>4.11</version>
       </dependency>
+      <!--<dependency>-->
+          <!--<groupId>org.bytedeco.javacpp-presets</groupId>-->
+          <!--<artifactId>opencv</artifactId>-->
+          <!--<version>2.4.9-0.8</version>-->
+      <!--</dependency>-->
   </dependencies>
 
   <build>
@@ -81,8 +82,12 @@
           </descriptors>
           <archive>
             <manifest>
+              <addClasspath>true</addClasspath>
               <mainClass>org.fidlr.hadoop.ImageJob</mainClass>
             </manifest>
+            <manifestEntries>
+                <Class-Path>/usr/share/OpenCV/java</Class-Path>
+            </manifestEntries>
           </archive>
         </configuration>
         <executions>
